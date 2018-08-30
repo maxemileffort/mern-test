@@ -1,12 +1,19 @@
 version: '3.4'
 services:
-  web:
+  scripts:
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.rscripts
+    depends_on:
+      - db   
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile.node
       target: development
     depends_on:
       - db
+      - scripts
     ports:
       - "${WEB_PORT:-8000}:8000"
     volumes:
